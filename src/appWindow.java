@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor. 
  */
-package storagetester;
 
+import java.awt.Color;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -80,14 +80,9 @@ public class appWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         labelLNAME = new javax.swing.JLabel();
-        lConnect = new javax.swing.JLabel();
-        lauthenticate = new javax.swing.JLabel();
-        lread = new javax.swing.JLabel();
-        lwrite = new javax.swing.JLabel();
         labelLHOST = new javax.swing.JLabel();
         labelRHOST = new javax.swing.JLabel();
         labelHNAME = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         linha = new javax.swing.JLabel();
         linha1 = new javax.swing.JLabel();
         labelOS = new javax.swing.JLabel();
@@ -121,11 +116,14 @@ public class appWindow extends javax.swing.JFrame {
         busca = new javax.swing.JCheckBox();
         infoB = new javax.swing.JLabel();
         aviso = new javax.swing.JLabel();
-        writeB = new javax.swing.JButton();
         readB = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         hintButton = new javax.swing.JLabel();
-        selected = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        reset = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -133,9 +131,8 @@ public class appWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("storageTesterGUI");
-        setAutoRequestFocus(false);
-        setBackground(new java.awt.Color(51, 51, 51));
-        setForeground(new java.awt.Color(0, 51, 255));
+        setBackground(java.awt.Color.black);
+        setForeground(java.awt.Color.black);
         setMinimumSize(new java.awt.Dimension(615, 465));
         setPreferredSize(new java.awt.Dimension(615, 540));
         setResizable(false);
@@ -152,14 +149,6 @@ public class appWindow extends javax.swing.JFrame {
         });
         getContentPane().add(labelLNAME);
         labelLNAME.setBounds(105, 160, 140, 14);
-        getContentPane().add(lConnect);
-        lConnect.setBounds(560, 30, 30, 30);
-        getContentPane().add(lauthenticate);
-        lauthenticate.setBounds(560, 70, 30, 30);
-        getContentPane().add(lread);
-        lread.setBounds(560, 110, 34, 30);
-        getContentPane().add(lwrite);
-        lwrite.setBounds(562, 148, 30, 30);
 
         labelLHOST.setBackground(new java.awt.Color(255, 255, 255));
         labelLHOST.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -198,12 +187,6 @@ public class appWindow extends javax.swing.JFrame {
         });
         getContentPane().add(labelHNAME);
         labelHNAME.setBounds(337, 160, 180, 14);
-
-        jLabel6.setBackground(new java.awt.Color(255, 255, 102));
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setOpaque(true);
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(550, 30, 50, 150);
 
         linha.setBackground(new java.awt.Color(255, 255, 255));
         linha.setText("jLabel2");
@@ -272,7 +255,7 @@ public class appWindow extends javax.swing.JFrame {
         fundo.setText("-");
         fundo.setOpaque(true);
         getContentPane().add(fundo);
-        fundo.setBounds(0, 30, 550, 150);
+        fundo.setBounds(0, 30, 590, 150);
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
@@ -364,7 +347,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(connect);
-        connect.setBounds(460, 290, 90, 50);
+        connect.setBounds(480, 290, 90, 50);
 
         logArea.setEditable(false);
         logArea.setBackground(new java.awt.Color(242, 242, 242));
@@ -476,22 +459,7 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(aviso);
         aviso.setBounds(165, 0, 30, 30);
 
-        writeB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                writeBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                writeBMouseExited(evt);
-            }
-        });
-        writeB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                writeBActionPerformed(evt);
-            }
-        });
-        getContentPane().add(writeB);
-        writeB.setBounds(460, 360, 90, 50);
-
+        readB.setEnabled(false);
         readB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 readBMouseEntered(evt);
@@ -516,9 +484,47 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(hintButton);
         hintButton.setBounds(310, 266, 280, 14);
 
-        selected.setText("jLabel7");
-        getContentPane().add(selected);
-        selected.setBounds(220, 180, 40, 40);
+        jLabel6.setText("jLabel6");
+        jLabel6.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel6.setMinimumSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(440, 360, 40, 40);
+
+        jLabel7.setText("jLabel6");
+        jLabel7.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel7.setMinimumSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(310, 295, 40, 40);
+
+        jLabel8.setText("jLabel6");
+        jLabel8.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel8.setMinimumSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(440, 295, 40, 40);
+
+        reset.setBackground(new java.awt.Color(0, 0, 0));
+        reset.setBorderPainted(false);
+        reset.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        reset.setEnabled(false);
+        reset.setSelected(true);
+        reset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                resetMouseEntered(evt);
+            }
+        });
+        reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetActionPerformed(evt);
+            }
+        });
+        getContentPane().add(reset);
+        reset.setBounds(480, 360, 90, 50);
+
+        jLabel9.setText("jLabel6");
+        jLabel9.setMaximumSize(new java.awt.Dimension(30, 30));
+        jLabel9.setMinimumSize(new java.awt.Dimension(30, 30));
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(310, 365, 40, 40);
 
         jMenu1.setText("Opções");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -651,6 +657,10 @@ public class appWindow extends javax.swing.JFrame {
     }
 
     private void validateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateActionPerformed
+
+                               reset.setBackground(Color.BLACK);
+        reset.setForeground(Color.BLACK);
+        
         labelHNAME.setVisible(true);
         atualizaLog("Validando entradas do usuário.");
         if (param.getText().length() > 0 && dominio.getText().length() > 0 && usuario.getText().length() > 0 && senha.getText().length() > 0 && rede.getText().length() > 0) {
@@ -677,6 +687,7 @@ public class appWindow extends javax.swing.JFrame {
             }
             
             connect.setEnabled(true);
+            validate.setEnabled(false);
             logs += outputStream.toString();
             logArea.setText(logs);
             this.run = true;
@@ -696,6 +707,9 @@ public class appWindow extends javax.swing.JFrame {
             this.aviso.setVisible(true);
         }
        atualizaLog("Validações finalizadas."); 
+       
+       
+       
     }//GEN-LAST:event_validateActionPerformed
 
     private void paramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramActionPerformed
@@ -728,7 +742,7 @@ public class appWindow extends javax.swing.JFrame {
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
         this.atualizaLog("Iniciando autenticação com o host destino.");
-        
+        connect.setEnabled(false);
         String username = usuario.getText();
         String password = senha.getText();
         String networkPath = rede.getText();
@@ -739,7 +753,6 @@ public class appWindow extends javax.swing.JFrame {
         try {
             NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", username, password);
             SmbFile dir = new SmbFile(networkPath, auth);
-            
             
             if (dir.exists() && dir.isDirectory()) {
                 
@@ -752,6 +765,7 @@ public class appWindow extends javax.swing.JFrame {
                         this.atualizaLog(" Arquivo Encontrado: " + file.getName());
                     }
                     linha1.setVisible(true);
+                    readB.setEnabled(true);
                 } else {
 
                 }
@@ -931,7 +945,6 @@ public class appWindow extends javax.swing.JFrame {
         this.host.setIcon(new javax.swing.ImageIcon(ScaledImage));
     }
 
-
     private void hostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseClicked
         
         if (!this.run){
@@ -956,23 +969,9 @@ public class appWindow extends javax.swing.JFrame {
        this.setInfoBPosition(110);
     }//GEN-LAST:event_buscaMouseEntered
 
-    private void writeBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_writeBMouseEntered
-        // TODO add your handling code here:
-        
-        this.hintButton.setText("Teste de escrita.");
-    }//GEN-LAST:event_writeBMouseEntered
-
-    private void writeBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_writeBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_writeBMouseExited
-
-    private void writeBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_writeBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_writeBActionPerformed
-
     private void readBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readBMouseEntered
         // TODO add your handling code here:
-        this.hintButton.setText("Teste de leitura.");
+        this.hintButton.setText("Teste de leitura e escrita.");
     }//GEN-LAST:event_readBMouseEntered
 
     private void readBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readBMouseExited
@@ -981,7 +980,18 @@ public class appWindow extends javax.swing.JFrame {
 
     private void readBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readBActionPerformed
         // TODO add your handling code here:
+        connect.setEnabled(false);
+        readB.setEnabled(false);
+        reset.setEnabled(true);
     }//GEN-LAST:event_readBActionPerformed
+
+    private void resetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetMouseEntered
+
+    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetActionPerformed
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1020,20 +1030,20 @@ public class appWindow extends javax.swing.JFrame {
     }
 
     private void initImg() {
+        
+        
+        
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("imagens/Host.png"));
         ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("imagens/fileserver.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("imagens/line.gif"));
         ImageIcon icon3 = new ImageIcon(getClass().getClassLoader().getResource("imagens/lineR.gif"));
-        ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("imagens/validate.png"));
+        ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("imagens/broadband-ezgif.com-gif-maker.gif"));
         ImageIcon icon5 = new ImageIcon(getClass().getClassLoader().getResource("imagens/key.png"));
         ImageIcon icon6 = new ImageIcon(getClass().getClassLoader().getResource("imagens/eraser.png"));
         ImageIcon icon7 = new ImageIcon(getClass().getClassLoader().getResource("imagens/copy.png"));
         ImageIcon icon8 = new ImageIcon(getClass().getClassLoader().getResource("imagens/info_button.png"));
-        ImageIcon icon9 = new ImageIcon(getClass().getClassLoader().getResource("imagens/warning.png"));
         ImageIcon icon10 = new ImageIcon(getClass().getClassLoader().getResource("imagens/reading.png"));
-        ImageIcon icon11 = new ImageIcon(getClass().getClassLoader().getResource("imagens/escrita.png"));
-       
-        ImageIcon icon12 = new ImageIcon(getClass().getClassLoader().getResource("imagens/redFrame.gif"));
+        ImageIcon icon13 = new ImageIcon(getClass().getClassLoader().getResource("imagens/08-32-06-494_512-ezgif.com-gif-maker.gif"));
         
         Image image = icon.getImage();
         Image image1 = icon1.getImage();
@@ -1044,44 +1054,31 @@ public class appWindow extends javax.swing.JFrame {
         Image image6 = icon6.getImage();
         Image image7 = icon7.getImage();
         Image image8 = icon8.getImage();
-        Image image9 = icon9.getImage();
         Image image10 = icon10.getImage();
-        Image image11 = icon11.getImage();
-        Image image12 = icon12.getImage();
+        Image image13 = icon13.getImage();
         
         Image ScaledImage = image.getScaledInstance(host.getWidth(), host.getHeight(), image.SCALE_SMOOTH);
         Image ScaledImage1 = image1.getScaledInstance(nas.getWidth(), nas.getHeight() - 20, image1.SCALE_SMOOTH);
         Image ScaledImage2 = image4.getScaledInstance(validate.getWidth() - 30, validate.getHeight(), image1.SCALE_SMOOTH);
         Image ScaledImage3 = image5.getScaledInstance(connect.getWidth() - 25, connect.getHeight() - 05, image1.SCALE_SMOOTH);
-        Image ScaledImage3_1 = image4.getScaledInstance(lConnect.getWidth(), lConnect.getHeight(), image1.SCALE_SMOOTH);
-        Image ScaledImage3_2 = image5.getScaledInstance(lauthenticate.getWidth(), lauthenticate.getHeight(), image1.SCALE_SMOOTH);
-        Image ScaledImage3_3 = image10.getScaledInstance(lread.getWidth(), lread.getHeight(), image1.SCALE_SMOOTH);
-        Image ScaledImage3_4 = image11.getScaledInstance(lwrite.getWidth()-5, lwrite.getHeight()-5, image1.SCALE_SMOOTH);
         Image ScaledImage4 = image6.getScaledInstance(apagar.getWidth() - 25, apagar.getHeight() - 15, image1.SCALE_SMOOTH);
         Image ScaledImage5 = image7.getScaledInstance(copiar.getWidth() - 25, copiar.getHeight() - 15, image1.SCALE_SMOOTH);
         Image ScaledImage6 = image8.getScaledInstance(infoB.getWidth() - 25, infoB.getHeight() - 15, image1.SCALE_SMOOTH);
-        Image ScaledImage7 = image9.getScaledInstance(writeB.getWidth() - 15, writeB.getHeight() -5, image1.SCALE_SMOOTH);
-        Image ScaledImage8 = image11.getScaledInstance(writeB.getWidth() - 50, writeB.getHeight() -15, image1.SCALE_SMOOTH);
-        Image ScaledImage9 = image10.getScaledInstance(readB.getWidth() - 40, readB.getHeight() -15, image1.SCALE_SMOOTH);
+        Image ScaledImage9 = image10.getScaledInstance(readB.getWidth() - 150, readB.getHeight() -25, image1.SCALE_SMOOTH);
+        Image ScaledImage10 = image13.getScaledInstance(reset.getWidth() - 25, reset.getHeight() - 15, image1.SCALE_SMOOTH);
         
-        writeB.setIcon(new javax.swing.ImageIcon(ScaledImage8));
         readB.setIcon(new javax.swing.ImageIcon(ScaledImage9));
         host.setIcon(new javax.swing.ImageIcon(ScaledImage));
         nas.setIcon(new javax.swing.ImageIcon(ScaledImage1));
         linha.setIcon(new javax.swing.ImageIcon(image2));
         linha1.setIcon(new javax.swing.ImageIcon(image3));
-        validate.setIcon(new javax.swing.ImageIcon(ScaledImage2));
+        validate.setIcon(new javax.swing.ImageIcon(image4));
         connect.setIcon(new javax.swing.ImageIcon(ScaledImage3));
         apagar.setIcon(new javax.swing.ImageIcon(ScaledImage4));
         copiar.setIcon(new javax.swing.ImageIcon(ScaledImage5));
-        this.infoB.setIcon(new javax.swing.ImageIcon(ScaledImage6));
-        aviso.setIcon(new javax.swing.ImageIcon(ScaledImage7));
+        infoB.setIcon(new javax.swing.ImageIcon(ScaledImage6));
+        reset.setIcon(new javax.swing.ImageIcon(image13));
         
-        lConnect.setIcon(new javax.swing.ImageIcon(ScaledImage3_1) );
-        lauthenticate.setIcon(new javax.swing.ImageIcon(ScaledImage3_2) );
-        lread.setIcon(new javax.swing.ImageIcon(ScaledImage3_3));
-        lwrite.setIcon(new javax.swing.ImageIcon(ScaledImage3_4));
-        selected.setIcon(new javax.swing.ImageIcon(image12));
         
         linha.setVisible(false);
         linha1.setVisible(false);
@@ -1089,6 +1086,9 @@ public class appWindow extends javax.swing.JFrame {
         System.setOut(printStream);
         this.setInfoBPosition(160);
         labelRHOST.setVisible(false);
+        
+        reset.setBackground(Color.BLACK);
+        reset.setForeground(Color.BLACK);
     }
     
     private void initLogsAction(){
@@ -1173,6 +1173,9 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -1181,28 +1184,23 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lConnect;
     private javax.swing.JLabel labelHNAME;
     private javax.swing.JLabel labelLHOST;
     private javax.swing.JLabel labelLNAME;
     private javax.swing.JLabel labelOS;
     private javax.swing.JLabel labelRHOST;
-    private javax.swing.JLabel lauthenticate;
     private javax.swing.JLabel linha;
     private javax.swing.JLabel linha1;
     private javax.swing.JButton log;
     private javax.swing.JTextArea logArea;
-    private javax.swing.JLabel lread;
-    private javax.swing.JLabel lwrite;
     private javax.swing.JLabel nas;
     private javax.swing.JTextField param;
     private javax.swing.JButton readB;
     private javax.swing.JTextField rede;
+    private javax.swing.JButton reset;
     private javax.swing.JLabel retorno;
-    private javax.swing.JLabel selected;
     private javax.swing.JTextField senha;
     private javax.swing.JTextField usuario;
     private javax.swing.JButton validate;
-    private javax.swing.JButton writeB;
     // End of variables declaration//GEN-END:variables
 }
