@@ -42,6 +42,10 @@ public class appWindow extends javax.swing.JFrame {
 
     private boolean hide = true;
     private boolean run = false;
+    
+    private boolean autOk = false;
+    private boolean validOk = false;
+    
     private ImageIcon icon;
     private Image image;
     private Image ScaledImage;
@@ -128,6 +132,19 @@ public class appWindow extends javax.swing.JFrame {
         cmOK2 = new javax.swing.JLabel();
         cmERROR2 = new javax.swing.JLabel();
         cmOK3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -339,7 +356,6 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 290, 280, 14);
 
-        connect.setEnabled(false);
         connect.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 connectMouseEntered(evt);
@@ -463,7 +479,6 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(aviso);
         aviso.setBounds(165, 0, 30, 30);
 
-        readB.setEnabled(false);
         readB.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 readBMouseEntered(evt);
@@ -491,7 +506,6 @@ public class appWindow extends javax.swing.JFrame {
         reset.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         reset.setBorderPainted(false);
         reset.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        reset.setEnabled(false);
         reset.setOpaque(false);
         reset.setSelected(true);
         reset.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -523,27 +537,143 @@ public class appWindow extends javax.swing.JFrame {
 
         cmOK1.setText("x");
         getContentPane().add(cmOK1);
-        cmOK1.setBounds(326, 290, 30, 30);
+        cmOK1.setBounds(326, 300, 30, 30);
 
         cmERROR3.setText("y");
         getContentPane().add(cmERROR3);
-        cmERROR3.setBounds(456, 310, 30, 30);
+        cmERROR3.setBounds(456, 300, 30, 30);
 
         cmERROR1.setText("y");
         getContentPane().add(cmERROR1);
-        cmERROR1.setBounds(326, 310, 30, 30);
+        cmERROR1.setBounds(326, 300, 30, 30);
 
         cmOK2.setText("x");
         getContentPane().add(cmOK2);
-        cmOK2.setBounds(326, 360, 30, 30);
+        cmOK2.setBounds(326, 370, 30, 30);
 
         cmERROR2.setText("y");
         getContentPane().add(cmERROR2);
-        cmERROR2.setBounds(326, 380, 30, 30);
+        cmERROR2.setBounds(326, 370, 30, 30);
 
         cmOK3.setText("x");
         getContentPane().add(cmOK3);
-        cmOK3.setBounds(456, 290, 30, 30);
+        cmOK3.setBounds(456, 300, 30, 30);
+
+        jLabel7.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel7.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText(".");
+        jLabel7.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel7.setOpaque(true);
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(439, 290, 5, 55);
+
+        jLabel8.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel8.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText(".");
+        jLabel8.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel8.setOpaque(true);
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(350, 340, 90, 5);
+
+        jLabel9.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel9.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText(".");
+        jLabel9.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel9.setOpaque(true);
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(570, 360, 5, 55);
+
+        jLabel10.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel10.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText(".");
+        jLabel10.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel10.setOpaque(true);
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(480, 410, 90, 5);
+
+        jLabel13.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel13.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText(".");
+        jLabel13.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel13.setOpaque(true);
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(480, 340, 90, 5);
+
+        jLabel14.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel14.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText(".");
+        jLabel14.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel14.setEnabled(false);
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel14.setOpaque(true);
+        getContentPane().add(jLabel14);
+        jLabel14.setBounds(569, 290, 5, 55);
+
+        jLabel15.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel15.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText(".");
+        jLabel15.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel15.setOpaque(true);
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(350, 410, 90, 5);
+
+        jLabel16.setBackground(new java.awt.Color(102, 255, 102));
+        jLabel16.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText(".");
+        jLabel16.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel16.setOpaque(true);
+        getContentPane().add(jLabel16);
+        jLabel16.setBounds(439, 360, 5, 55);
+
+        jLabel17.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel17.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel17.setText(".");
+        jLabel17.setOpaque(true);
+        getContentPane().add(jLabel17);
+        jLabel17.setBounds(580, 220, 5, 30);
+
+        jLabel18.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel18.setText(".");
+        jLabel18.setOpaque(true);
+        getContentPane().add(jLabel18);
+        jLabel18.setBounds(290, 210, 5, 30);
+
+        jLabel19.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel19.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel19.setText(".");
+        jLabel19.setOpaque(true);
+        getContentPane().add(jLabel19);
+        jLabel19.setBounds(290, 260, 5, 30);
+
+        jLabel20.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel20.setText(".");
+        jLabel20.setOpaque(true);
+        getContentPane().add(jLabel20);
+        jLabel20.setBounds(290, 310, 5, 30);
+
+        jLabel21.setBackground(new java.awt.Color(255, 0, 0));
+        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel21.setText(".");
+        jLabel21.setOpaque(true);
+        getContentPane().add(jLabel21);
+        jLabel21.setBounds(290, 360, 5, 30);
 
         jMenu1.setText("Opções");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -680,6 +810,8 @@ public class appWindow extends javax.swing.JFrame {
   //                             reset.setBackground(Color.BLACK);
  //       reset.setForeground(Color.BLACK);
         
+        if(!this.cmERROR1.isVisible()){
+        
         labelHNAME.setVisible(true);
         atualizaLog("Validando entradas do usuário.");
         if (param.getText().length() > 0 && dominio.getText().length() > 0 && usuario.getText().length() > 0 && senha.getText().length() > 0 && rede.getText().length() > 0) {
@@ -701,9 +833,11 @@ public class appWindow extends javax.swing.JFrame {
             try {
                 this.getRHostAddress(maquina);
                 
+                
             } catch (SocketException ex) {
                 atualizaLog("Ocorreu algum erro ao obter o endereço de IP da máquina destino.");
                 cmERROR1.setVisible(false);
+                reset(1);
                 Logger.getLogger(appWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -720,21 +854,25 @@ public class appWindow extends javax.swing.JFrame {
                 
             }
                 //QUANDO DE FATO FUNCIONA:
-       connect.setEnabled(true);
+//       connect.setEnabled(true);
        //readB.setEnabled(true);
-       validate.setEnabled(false);   
+//       validate.setEnabled(false);   
+            highLightField (false);
         }
         
         else {
             this.atualizaHint("Necessário informar todos os campos.");
             this.infoB.setVisible(false);
             this.aviso.setVisible(true);
+            highLightField (true);
         }
        atualizaLog("Validações finalizadas."); 
        
-       
-
-       
+        } else {
+            atualizaLog("Foi identificado algum problema de conectividade, valide os campos e clique no botão destacado para continuar."); 
+                        logs += outputStream.toString();
+            logArea.setText(logs);
+        }
        
     }//GEN-LAST:event_validateActionPerformed
 
@@ -767,6 +905,8 @@ public class appWindow extends javax.swing.JFrame {
     }
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
+
+        if (validOk){
         this.atualizaLog("Iniciando autenticação com o host destino.");
 //        connect.setEnabled(false);
         String username = usuario.getText();
@@ -814,8 +954,16 @@ public class appWindow extends javax.swing.JFrame {
         System.setOut(printStream);
   //      connect.setEnabled(false);
         logArea.setText(logs);
-        readB.setEnabled(true);
+//        readB.setEnabled(true);
 
+        } else{
+jLabel7.setBackground(Color.RED);
+jLabel8.setBackground(Color.RED);
+atualizaLog("Primeiro valide a conectivade com a máquina destino no campo destacado.");
+                        logs += outputStream.toString();
+            logArea.setText(logs);
+        }        
+        
     }//GEN-LAST:event_connectActionPerformed
 
     private void redeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_redeMouseEntered
@@ -1026,6 +1174,28 @@ public class appWindow extends javax.swing.JFrame {
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO add your handling code here:
+        atualizaLHOST("imagens/Host.png");
+        cmOK1.setVisible(false);
+cmERROR1.setVisible(false);
+                cmOK2.setVisible(false);
+cmERROR2.setVisible(false);
+                        cmOK3.setVisible(false);
+cmERROR3.setVisible(false);
+linha.setVisible(false);
+linha1.setVisible(false);
+this.run = false;
+labelRHOST.setVisible(false);
+labelHNAME.setText("Network-Attached Storage (NAS)");
+        logArea.setText("");
+        this.logs = "";
+        
+        highLight (1, true);
+        highLight (2, false);
+        highLight (3, false);
+        highLight (4, false);
+        jLabel7.setBackground(Color.GREEN);
+jLabel8.setBackground(Color.GREEN);
+highLightField (false);
     }//GEN-LAST:event_resetActionPerformed
 
     private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
@@ -1152,6 +1322,113 @@ cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
         cmERROR3.setVisible(false);
  //       reset.setBackground(Color.BLACK);
  //       reset.setForeground(Color.BLACK);
+        
+        this.highLight(2, false);
+        this.highLight(3, false);
+        this.highLight(4, false);
+        highLightField (false);
+        
+    }
+    
+    private void reset(int x){
+        
+//        connect.setEnabled(false);
+//        readB.setEnabled(false);
+//        reset.setEnabled(true);
+        
+                switch (x) {
+
+            case 1:
+                cmERROR1.setVisible(true);
+                break;
+                
+                            case 2:
+                cmERROR2.setVisible(true);
+                break;
+    
+                case 3:
+                cmERROR3.setVisible(true);
+                break;
+                    
+                }
+        
+    }
+    
+    private void highLight (int x, boolean y){
+           
+        if (y){
+        
+        switch (x) {
+                            
+           
+                            
+            case 1:
+                jLabel7.setVisible(true);
+                jLabel8.setVisible(true);
+                break;
+                
+                            case 2:
+                jLabel14.setVisible(true);
+                jLabel13.setVisible(true);
+                break;
+    
+                case 3:
+                jLabel16.setVisible(true);
+                jLabel15.setVisible(true);
+                break;
+                    
+                                    case 4:
+                jLabel9.setVisible(true);
+                jLabel10.setVisible(true);
+                break;
+                    
+                }
+        } else {
+            
+                    switch (x) {
+                            
+           
+                            
+            case 1:
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                break;
+                
+                            case 2:
+                jLabel14.setVisible(false);
+                jLabel13.setVisible(false);
+                break;
+    
+                case 3:
+                jLabel16.setVisible(false);
+                jLabel15.setVisible(false);
+                break;
+                    
+                                    case 4:
+                jLabel9.setVisible(false);
+                jLabel10.setVisible(false);
+                break;
+            
+        }
+        }
+    }
+    
+    private void highLightField (boolean x){
+        
+        if (x){
+            jLabel18.setVisible(true);
+                    jLabel19.setVisible(true);
+                    jLabel20.setVisible(true);
+                            jLabel21.setVisible(true);
+                            jLabel17.setVisible(true);
+        } else {
+            jLabel18.setVisible(false);
+                    jLabel19.setVisible(false);
+                    jLabel20.setVisible(false);
+                            jLabel21.setVisible(false);
+                            jLabel17.setVisible(false);            
+        }
+        
     }
     
     private void initLogsAction(){
@@ -1200,13 +1477,21 @@ cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
                 this.atualizaLog("Endereço de IP da máquina destino: "+enderecoIPStr);
                 this.atualizaLog("Realizando testes de conectividade.");
                 if(enderecoIPStr.equals("127.0.0.1")){
-                            
+                            reset(1);
                             cmERROR1.setVisible(true);
+                            this.highLight(1, false);
+                            this.highLight(4, true);
+                            labelRHOST.setText("Maquina desconhecida.");
+                            atualizaLog("Não foi possivel obter o endereço de IP da máquina destino.");
                                     } else{
                     cmOK1.setVisible(true);
-                }
+                                    this.highLight(1, false);
+                this.highLight(2, true);
                 labelRHOST.setText(enderecoIPStr);
                 linha.setVisible(true); 
+                this.validOk = true; //DEU CERTO!
+                } 
+
                
             } catch (UnknownHostException e) {
                 System.err.println(this.getHorario() + "Não foi possível encontrar o endereço IP para o host: " + nomeDoHost);
@@ -1242,13 +1527,26 @@ cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
     private javax.swing.JLabel infoB;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
