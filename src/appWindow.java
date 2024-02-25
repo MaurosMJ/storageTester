@@ -33,6 +33,9 @@ import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbFile;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import jcifs.Config;
+import jcifs.smb.SmbFileInputStream;
+import jcifs.smb.SmbFileOutputStream;
 
 /**
  *
@@ -42,10 +45,10 @@ public class appWindow extends javax.swing.JFrame {
 
     private boolean hide = true;
     private boolean run = false;
-    
+
     private boolean autOk = false;
     private boolean validOk = false;
-    
+
     private ImageIcon icon;
     private Image image;
     private Image ScaledImage;
@@ -57,6 +60,7 @@ public class appWindow extends javax.swing.JFrame {
     private String hostName = "";
     private String OS = System.getProperty("os.name");
     private String Lhostaddress = "";
+
     /**
      * Creates new form appWindow
      */
@@ -71,7 +75,7 @@ public class appWindow extends javax.swing.JFrame {
         atualizaLog("Obtendo informações da estação local.");
         this.getLhostInfo();
         atualizaLog("Todas informações necessárias da estação local foram adicionadas.");
-        
+
     }
 
     /**
@@ -521,7 +525,7 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(reset);
         reset.setBounds(480, 360, 90, 50);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SMB 1.0", "SMB 2.0", "SMB 3.0" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SMB1", "SMB2", "SMB2.1" }));
         jComboBox1.setSelectedItem("SMB 3.0");
         jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -743,14 +747,14 @@ public class appWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_connectMouseEntered
 
     private void logMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logMouseEntered
-        if("▼".equals(log.getText())){
-        this.atualizaHint("Expandir a janela para visualizar os logs.");
-        this.setInfoBPosition(159);
-        
+        if ("▼".equals(log.getText())) {
+            this.atualizaHint("Expandir a janela para visualizar os logs.");
+            this.setInfoBPosition(159);
+
         }
-        if("▲".equals(log.getText())){
-        this.atualizaHint("Ocultar a janela para visualizar os logs.");
-        this.setInfoBPosition(164);
+        if ("▲".equals(log.getText())) {
+            this.atualizaHint("Ocultar a janela para visualizar os logs.");
+            this.setInfoBPosition(164);
         }
     }//GEN-LAST:event_logMouseEntered
 
@@ -780,122 +784,121 @@ public class appWindow extends javax.swing.JFrame {
         }
 
     }
-    
-    private void getLhostInfo(){
-        
+
+    private void getLhostInfo() {
+
         this.labelOS.setText(this.OS);
-        atualizaLog("Sistema operacional da máquina:"+this.OS+".");
+        atualizaLog("Sistema operacional da máquina:" + this.OS + ".");
         try {
-        InetAddress localHost = InetAddress.getLocalHost();
-        this.hostName = localHost.getHostName();
-        atualizaLog("Nome da máquina local:"+this.hostName+".");
-        labelLHOST.setText(this.hostName);
-        this.Lhostaddress = localHost.getHostAddress();
-        atualizaLog("Endereço de IP da máquina local:"+this.Lhostaddress+".");
-        labelLNAME.setText(Lhostaddress);
-        
+            InetAddress localHost = InetAddress.getLocalHost();
+            this.hostName = localHost.getHostName();
+            atualizaLog("Nome da máquina local:" + this.hostName + ".");
+            labelLHOST.setText(this.hostName);
+            this.Lhostaddress = localHost.getHostAddress();
+            atualizaLog("Endereço de IP da máquina local:" + this.Lhostaddress + ".");
+            labelLNAME.setText(Lhostaddress);
+
         } catch (Exception e) {
-            
-                atualizaLog("Ocorreu um erro ao obter informações da maquina local.");
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                this.atualizaLog(sw.toString());
-            }
-  
+
+            atualizaLog("Ocorreu um erro ao obter informações da maquina local.");
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            this.atualizaLog(sw.toString());
+        }
+
     }
 
     private void validateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateActionPerformed
 
   //                             reset.setBackground(Color.BLACK);
- //       reset.setForeground(Color.BLACK);
-        
-        if(!this.cmERROR1.isVisible()){
-        
-        labelHNAME.setVisible(true);
-        atualizaLog("Validando entradas do usuário.");
-        if (param.getText().length() > 0 && dominio.getText().length() > 0 && usuario.getText().length() > 0 && senha.getText().length() > 0 && rede.getText().length() > 0) {
-            atualizaLog("Todas entradas fornecidas.");
-            this.setImgLHOST();
-            atualizaLog("Atualizado o sistema operacional."); 
-            String entrada = rede.getText();
-            int indicePrimeiraBarraDupla = entrada.indexOf("\\\\");
-            String maquina = "";
-            if (indicePrimeiraBarraDupla != -1) {
-                int indicePrimeiraBarra = entrada.indexOf("\\", indicePrimeiraBarraDupla + 2);
-                if (indicePrimeiraBarra != -1) {
-                    maquina = entrada.substring(indicePrimeiraBarraDupla + 2, indicePrimeiraBarra);
-                    
-                    this.atualizaLog("Máquina destino: "+ maquina);
-                } 
+        //       reset.setForeground(Color.BLACK);
+        if (!this.cmERROR1.isVisible() && !this.cmERROR2.isVisible() && !this.cmERROR3.isVisible()) {
+
+    labelHNAME.setVisible(true);
+    atualizaLog("Validando entradas do usuário.");
+    if (param.getText().length() > 0 && dominio.getText().length() > 0 && usuario.getText().length() > 0 && senha.getText().length() > 0 && rede.getText().length() > 0) {
+        atualizaLog("Todas entradas fornecidas.");
+        this.setImgLHOST();
+        atualizaLog("Atualizado o sistema operacional.");
+        String entrada = rede.getText();
+        if (!entrada.endsWith("\\")) {
+            entrada += "\\";
+        }
+        int indicePrimeiraBarraDupla = entrada.indexOf("\\\\");
+        String maquina = "";
+        if (indicePrimeiraBarraDupla != -1) {
+            int indicePrimeiraBarra = entrada.indexOf("\\", indicePrimeiraBarraDupla + 2);
+            if (indicePrimeiraBarra != -1) {
+                maquina = entrada.substring(indicePrimeiraBarraDupla + 2, indicePrimeiraBarra);
+
+                this.atualizaLog("Máquina destino: " + maquina);
             }
-            atualizaLog("Realizado tratamento das entradas.");
-            try {
-                this.getRHostAddress(maquina);
-                
-                
-            } catch (SocketException ex) {
-                atualizaLog("Ocorreu algum erro ao obter o endereço de IP da máquina destino.");
-                cmERROR1.setVisible(false);
-                reset(1);
-                Logger.getLogger(appWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+        }
+        atualizaLog("Realizado tratamento das entradas.");
+        try {
+            this.getRHostAddress(maquina);
+
+        } catch (SocketException ex) {
+            atualizaLog("Ocorreu algum erro ao obter o endereço de IP da máquina destino.");
+            cmERROR1.setVisible(false);
+            reset(1);
+            Logger.getLogger(appWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
   //          connect.setEnabled(true);
-  //          validate.setEnabled(false);
-            logs += outputStream.toString();
-            logArea.setText(logs);
-            this.run = true;
-            
-            if(!this.labelHNAME.getText().equals(this.labelRHOST)){
-             labelRHOST.setVisible(true);
-             labelHNAME.setText(maquina);                
-            } else{
-                
-            }
+                //          validate.setEnabled(false);
+                logs += outputStream.toString();
+                logArea.setText(logs);
+                this.run = true;
+
+                if (!this.labelHNAME.getText().equals(this.labelRHOST)) {
+                    labelRHOST.setVisible(true);
+                    labelHNAME.setText(maquina);
+                } else {
+
+                }
                 //QUANDO DE FATO FUNCIONA:
 //       connect.setEnabled(true);
-       //readB.setEnabled(true);
+                //readB.setEnabled(true);
 //       validate.setEnabled(false);   
-            highLightField (false);
-        }
-        
-        else {
-            this.atualizaHint("Necessário informar todos os campos.");
-            this.infoB.setVisible(false);
-            this.aviso.setVisible(true);
-            highLightField (true);
-        }
-       atualizaLog("Validações finalizadas."); 
-       
+                highLightField(false);
+            } else {
+                this.atualizaHint("Necessário informar todos os campos.");
+                this.infoB.setVisible(false);
+                this.aviso.setVisible(true);
+                highLightField(true);
+            }
+            atualizaLog("Validações finalizadas.");
+
         } else {
-            atualizaLog("Foi identificado algum problema de conectividade, valide os campos e clique no botão destacado para continuar."); 
-                        logs += outputStream.toString();
+            atualizaLog("Foi identificado algum problema de conectividade, valide os campos e clique no botão destacado para continuar.");
+            logs += outputStream.toString();
             logArea.setText(logs);
         }
-       
+
     }//GEN-LAST:event_validateActionPerformed
 
     private void paramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramActionPerformed
 
     }//GEN-LAST:event_paramActionPerformed
 
-    private void setImgLHOST (){
-    
-            if (this.OS.contains("Windows")) {
-                atualizaLHOST("imagens/windowsHost.png");
-            }
+    private void setImgLHOST() {
 
-            if (this.OS.contains("Linux")) {
-                atualizaLHOST("imagens/linuxHost.png");
-            }
+        if (this.OS.contains("Windows")) {
+            atualizaLHOST("imagens/windowsHost.png");
+        }
 
-            if (this.OS.contains("Mac")) {
-                atualizaLHOST("imagens/macHost.png");
-            }
+        if (this.OS.contains("Linux")) {
+            atualizaLHOST("imagens/linuxHost.png");
+        }
 
-}
-    
+        if (this.OS.contains("Mac")) {
+            atualizaLHOST("imagens/macHost.png");
+        }
+
+    }
+
     private String getHorario() {
         Date agora = new Date();
         SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss.SSSS");
@@ -906,64 +909,84 @@ public class appWindow extends javax.swing.JFrame {
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
 
-        if (validOk){
-        this.atualizaLog("Iniciando autenticação com o host destino.");
-//        connect.setEnabled(false);
-        String username = usuario.getText();
-        String password = senha.getText();
-        String networkPath = rede.getText();
-        networkPath = networkPath.replace("\\", "/");
-        networkPath = "smb:" + networkPath + "/";
-        this.atualizaLog("Caminho de rede: "+ networkPath);
-        
-        try {
-            NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", username, password);
-            SmbFile dir = new SmbFile(networkPath, auth);
-            
-            if (dir.exists() && dir.isDirectory()) {
-                
-                SmbFile[] files = dir.listFiles();
-                if (busca.isSelected()) {
-                    this.atualizaLog("☰☰☰ INICIANDO BUSCA ☰☰☰");
-                    this.atualizaLog("Pastas e arquivos no diretório:");
-                    for (SmbFile file : files) {
-                        
-                        this.atualizaLog(" Arquivo Encontrado: " + file.getName());
+    if (this.cmOK1.isVisible()) {
+        if (validOk) {
+            this.atualizaLog("Iniciando autenticação com o host destino.");
+            // connect.setEnabled(false);
+            String username = usuario.getText();
+            String password = senha.getText();
+            String networkPath = rede.getText();
+            networkPath = networkPath.replace("\\", "/");
+            networkPath = "smb:" + networkPath + "/";
+            this.atualizaLog("Caminho de rede: " + networkPath);
+
+            // Configurando a versão do protocolo SMB
+            this.atualizaLog("Protocolo adicionado: "+jComboBox1.getSelectedItem().toString());
+
+            try {
+                NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", username, password);
+                SmbFile dir = new SmbFile(networkPath, auth);
+
+                if (dir.exists() && dir.isDirectory()) {
+
+                    SmbFile[] files = dir.listFiles();
+                    if (busca.isSelected()) {
+
+                        this.atualizaLog("☰☰☰ INICIANDO BUSCA ☰☰☰");
+                        this.atualizaLog("Pastas e arquivos no diretório:");
+                        for (SmbFile file : files) {
+
+                            this.atualizaLog(" Arquivo Encontrado: " + file.getName());
+                        }
+                        linha1.setVisible(true);
+
+                    } else {
+
                     }
-                    linha1.setVisible(true);
-                    
-                } else {
 
                 }
+                this.atualizaLog("Autenticado com sucesso no diretório destino.");
+
+                cmOK3.setVisible(true);
+                this.highLight(2, false);
+                this.highLight(3, true);
+                this.autOk = true; // DEU CERTO!            
+
+            } catch (Exception e) {
+
+                this.atualizaLog("Ocorreu um erro ao autenticar e reconhecer os arquivos do diretório.");
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                e.printStackTrace(pw);
+                this.atualizaLog(sw.toString());
+                this.atualizaLog(pw.toString());
+                linha1.setVisible(false);
+                this.reset(3);
+                this.highLight(2, false);
+                this.highLight(4, true);
             }
-            
 
-        } catch (Exception e) {
-            
-            this.atualizaLog("Ocorreu um erro ao autenticar e reconhecer os arquivos do diretório.");
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            this.atualizaLog(sw.toString());
-            this.atualizaLog(pw.toString());
-            linha1.setVisible(false);
-        }
-        
- //       readB.setEnabled(true); // adicionado botão sem validação
- //       connect.setEnabled(false);
-        System.setOut(printStream);
-  //      connect.setEnabled(false);
-        logArea.setText(logs);
-//        readB.setEnabled(true);
-
-        } else{
-jLabel7.setBackground(Color.RED);
-jLabel8.setBackground(Color.RED);
-atualizaLog("Primeiro valide a conectivade com a máquina destino no campo destacado.");
-                        logs += outputStream.toString();
+            // readB.setEnabled(true); // adicionado botão sem validação
+            // connect.setEnabled(false);
+            System.setOut(printStream);
             logArea.setText(logs);
-        }        
-        
+            // connect.setEnabled(false);
+            // readB.setEnabled(true);
+
+        } else {
+            atualizaLog("Foi identificado algum problema de autenticação, valide os campos e clique no botão destacado para continuar.");
+            logs += outputStream.toString();
+            logArea.setText(logs);
+        }
+        param.setEnabled(false);
+
+    } else {
+        jLabel7.setBackground(Color.RED);
+        jLabel8.setBackground(Color.RED);
+        atualizaLog("Primeiro valide a conectivade com a máquina destino no campo destacado.");
+        logs += outputStream.toString();
+        logArea.setText(logs);
+    }
     }//GEN-LAST:event_connectActionPerformed
 
     private void redeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_redeMouseEntered
@@ -1007,7 +1030,7 @@ atualizaLog("Primeiro valide a conectivade com a máquina destino no campo desta
         this.logs = "";
         this.atualizaHint("Ok, reset do campo LOG feito.");
         this.setInfoBPosition(187);
-        
+
     }//GEN-LAST:event_apagarActionPerformed
 
     private void copiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copiarActionPerformed
@@ -1101,18 +1124,18 @@ atualizaLog("Primeiro valide a conectivade com a máquina destino no campo desta
 
     private void hostMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseEntered
 
-        if(!this.run){
-        this.atualizaLHOST("imagens/hostL.png");
-        this.atualizaHint("Realizar upload do arquivo XML do menu do sistema.");
-        this.setInfoBPosition(125);
+        if (!this.run) {
+            this.atualizaLHOST("imagens/hostL.png");
+            this.atualizaHint("Realizar upload do arquivo XML do menu do sistema.");
+            this.setInfoBPosition(125);
         }
-        
-        
+
+
     }//GEN-LAST:event_hostMouseEntered
-    
+
     private void hostMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseExited
-        if(!this.run){
-        this.atualizaLHOST("imagens/host.png");
+        if (!this.run) {
+            this.atualizaLHOST("imagens/host.png");
         }
     }//GEN-LAST:event_hostMouseExited
 
@@ -1124,33 +1147,33 @@ atualizaLog("Primeiro valide a conectivade com a máquina destino no campo desta
     }
 
     private void hostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostMouseClicked
-        
-        if (!this.run){
-        this.JchooserXML();
+
+        if (!this.run) {
+            this.JchooserXML();
         }
-        
+
     }//GEN-LAST:event_hostMouseClicked
 
     private void validateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_validateMouseExited
         // TODO add your handling code here:
         this.aviso.setVisible(false);
-        
-        if (!infoB.isVisible()){
-        this.atualizaHint("");
+
+        if (!infoB.isVisible()) {
+            this.atualizaHint("");
         }
-        
+
     }//GEN-LAST:event_validateMouseExited
 
     private void buscaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscaMouseEntered
         // TODO add your handling code here:
-       this.atualizaHint("Buscar e listar todos os arquivos encontrados no diretório.");
-       this.setInfoBPosition(110);
+        this.atualizaHint("Buscar e listar todos os arquivos encontrados no diretório.");
+        this.setInfoBPosition(110);
     }//GEN-LAST:event_buscaMouseEntered
 
     private void readBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readBMouseEntered
         // TODO add your handling code here:
         this.hintButton.setText("Teste de leitura e escrita.");
-                this.atualizaHint("Enviar um arquivo de texto e realizar a leitura do arquivo.");
+        this.atualizaHint("Enviar um arquivo de texto e realizar a leitura do arquivo.");
         this.setInfoBPosition(118);
     }//GEN-LAST:event_readBMouseEntered
 
@@ -1159,16 +1182,110 @@ atualizaLog("Primeiro valide a conectivade com a máquina destino no campo desta
     }//GEN-LAST:event_readBMouseExited
 
     private void readBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readBActionPerformed
-        // TODO add your handling code here:
- //       connect.setEnabled(false);
- //       readB.setEnabled(false);
- //       reset.setEnabled(true);
+
+      if (this.cmOK1.isVisible() && this.cmOK3.isVisible()) {
+
+        this.atualizaLog("Initiating authentication with the target host.");
+        boolean read = false;
+        boolean write = false;
+
+        String host = "";
+
+        host = this.rede.getText().replace("\\", "/");
+        host = "smb:" + host;
+        String timestamp = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ssss").format(new Date());
+        String fileName = "/smbRW-" + timestamp.replaceAll("[: ]", "") + ".txt";
+        host += fileName + "/";
+
+        try {
+            // Configurando a versão do protocolo SMB
+            Config.setProperty("jcifs.smb.client.minVersion", jComboBox1.getSelectedItem().toString());
+            Config.setProperty("jcifs.smb.client.maxVersion", jComboBox1.getSelectedItem().toString());
+
+            NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication(dominio.getText(), usuario.getText(), senha.getText());
+            writeToFile(host, authentication);
+            write = true;
+        } catch (Exception e) {
+
+            logs += outputStream.toString();
+            logArea.setText(logs);
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            this.atualizaLog(sw.toString());
+            this.atualizaLog(pw.toString());
+        }
+
+        try {
+            // Configurando a versão do protocolo SMB
+            Config.setProperty("jcifs.smb.client.minVersion", jComboBox1.getSelectedItem().toString());
+            Config.setProperty("jcifs.smb.client.maxVersion", jComboBox1.getSelectedItem().toString());
+
+            NtlmPasswordAuthentication authentication = new NtlmPasswordAuthentication(dominio.getText(), usuario.getText(), senha.getText());
+            readFromFile(host, authentication);
+            read = true;
+        } catch (Exception e) {
+            logs += outputStream.toString();
+            logArea.setText(logs);
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            this.atualizaLog(sw.toString());
+            this.atualizaLog(pw.toString());
+        }
+
+        if (read && write) {
+            this.atualizaLog("Validação de leitura e escrita feita corretamente.");
+            cmOK2.setVisible(true);
+            this.highLight(3, false);
+            this.highLight(4, true);
+        } else {
+            this.reset(2);
+            this.highLight(3, false);
+            this.highLight(4, true);
+        }
+    } else {
+        jLabel7.setBackground(Color.RED);
+        jLabel8.setBackground(Color.RED);
+        jLabel14.setBackground(Color.RED);
+        jLabel13.setBackground(Color.RED);
+
+        atualizaLog("Primeiro valide a conectivade com a máquina destino no campo destacado.");
+
+    }
+    logs += outputStream.toString();
+    logArea.setText(logs);
     }//GEN-LAST:event_readBActionPerformed
+
+    private void writeToFile(String host, NtlmPasswordAuthentication authentication) throws Exception {
+    SmbFile remoteFile = new SmbFile(host, authentication);
+    SmbFileOutputStream outputStream = new SmbFileOutputStream(remoteFile);
+    byte[] content = "Conteudo gerado no arquivo: Este é um arquivo de texto.".getBytes();
+    outputStream.write(content);
+    outputStream.close();
+    this.atualizaLog("[Escrita = OK] Arquivo enviado com sucesso ao servidor destino!");
+
+    }
+
+    private void readFromFile(String host, NtlmPasswordAuthentication authentication) throws Exception {
+    SmbFile remoteFile = new SmbFile(host, authentication);
+    SmbFileInputStream inputStream = new SmbFileInputStream(remoteFile);
+    byte[] buffer = new byte[1024];
+    int bytesRead;
+    StringBuilder fileContent = new StringBuilder();
+    while ((bytesRead = inputStream.read(buffer)) != -1) {
+        fileContent.append(new String(buffer, 0, bytesRead));
+    }
+    inputStream.close();
+    this.atualizaLog("[Leitura = OK] Retorno do conteudo do arquivo texto: \n" + fileContent.toString());
+
+    }
+
 
     private void resetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseEntered
         // TODO add your handling code here:
         this.hintButton.setText("Zerar variáveis.");
-                this.atualizaHint("Recarrega variáveis globais.");
+        this.atualizaHint("Recarrega variáveis globais.");
         this.setInfoBPosition(193);
     }//GEN-LAST:event_resetMouseEntered
 
@@ -1176,31 +1293,37 @@ atualizaLog("Primeiro valide a conectivade com a máquina destino no campo desta
         // TODO add your handling code here:
         atualizaLHOST("imagens/Host.png");
         cmOK1.setVisible(false);
-cmERROR1.setVisible(false);
-                cmOK2.setVisible(false);
-cmERROR2.setVisible(false);
-                        cmOK3.setVisible(false);
-cmERROR3.setVisible(false);
-linha.setVisible(false);
-linha1.setVisible(false);
-this.run = false;
-labelRHOST.setVisible(false);
-labelHNAME.setText("Network-Attached Storage (NAS)");
+        cmERROR1.setVisible(false);
+        cmOK2.setVisible(false);
+        cmERROR2.setVisible(false);
+        cmOK3.setVisible(false);
+        cmERROR3.setVisible(false);
+        linha.setVisible(false);
+        linha1.setVisible(false);
+        this.run = false;
+        labelRHOST.setVisible(false);
+        labelHNAME.setText("Network-Attached Storage (NAS)");
         logArea.setText("");
         this.logs = "";
-        
-        highLight (1, true);
-        highLight (2, false);
-        highLight (3, false);
-        highLight (4, false);
+
+        highLight(1, true);
+        highLight(2, false);
+        highLight(3, false);
+        highLight(4, false);
         jLabel7.setBackground(Color.GREEN);
-jLabel8.setBackground(Color.GREEN);
-highLightField (false);
+        jLabel8.setBackground(Color.GREEN);
+        jLabel14.setBackground(Color.GREEN);
+        jLabel13.setBackground(Color.GREEN);
+        highLightField(false);
+        validOk = false;
+        this.autOk = false;
+        this.param.setEnabled(true);
+        this.rede.setEnabled(true);
     }//GEN-LAST:event_resetActionPerformed
 
     private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
         // TODO add your handling code here:
-                this.atualizaHint("Defina a versão do protocolo SMB.");
+        this.atualizaHint("Defina a versão do protocolo SMB.");
         this.setInfoBPosition(177);
     }//GEN-LAST:event_jComboBox1MouseEntered
     public static void main(String args[]) {
@@ -1241,9 +1364,7 @@ highLightField (false);
     }
 
     private void initImg() {
-        
-        
-        
+
         ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("imagens/Host.png"));
         ImageIcon icon1 = new ImageIcon(getClass().getClassLoader().getResource("imagens/fileserver.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("imagens/line.gif"));
@@ -1255,10 +1376,10 @@ highLightField (false);
         ImageIcon icon8 = new ImageIcon(getClass().getClassLoader().getResource("imagens/info_button.png"));
         ImageIcon icon10 = new ImageIcon(getClass().getClassLoader().getResource("imagens/1618932779_82532_gif-url-ezgif.com-speed.gif"));
         ImageIcon icon13 = new ImageIcon(getClass().getClassLoader().getResource("imagens/08-32-06-494_512-ezgif.com-gif-maker.gif"));
-        
+
         ImageIcon icon14 = new ImageIcon(getClass().getClassLoader().getResource("imagens/check-mark-icon-green-0.png"));
         ImageIcon icon15 = new ImageIcon(getClass().getClassLoader().getResource("imagens/error-icon-4.png"));
-        
+
         Image image = icon.getImage();
         Image image1 = icon1.getImage();
         Image image2 = icon2.getImage();
@@ -1272,7 +1393,7 @@ highLightField (false);
         Image image13 = icon13.getImage();
         Image image14 = icon14.getImage();
         Image image15 = icon15.getImage();
-        
+
         Image ScaledImage = image.getScaledInstance(host.getWidth(), host.getHeight(), image.SCALE_SMOOTH);
         Image ScaledImage1 = image1.getScaledInstance(nas.getWidth(), nas.getHeight() - 20, image1.SCALE_SMOOTH);
         Image ScaledImage2 = image4.getScaledInstance(validate.getWidth() - 30, validate.getHeight(), image1.SCALE_SMOOTH);
@@ -1280,12 +1401,12 @@ highLightField (false);
         Image ScaledImage4 = image6.getScaledInstance(apagar.getWidth() - 25, apagar.getHeight() - 15, image1.SCALE_SMOOTH);
         Image ScaledImage5 = image7.getScaledInstance(copiar.getWidth() - 25, copiar.getHeight() - 15, image1.SCALE_SMOOTH);
         Image ScaledImage6 = image8.getScaledInstance(infoB.getWidth() - 25, infoB.getHeight() - 15, image1.SCALE_SMOOTH);
-        Image ScaledImage9 = image10.getScaledInstance(readB.getWidth() - 150, readB.getHeight() -25, image1.SCALE_SMOOTH);
+        Image ScaledImage9 = image10.getScaledInstance(readB.getWidth() - 150, readB.getHeight() - 25, image1.SCALE_SMOOTH);
         Image ScaledImage10 = image13.getScaledInstance(reset.getWidth() - 25, reset.getHeight() - 15, image1.SCALE_SMOOTH);
- 
-        Image ScaledImage14 = image14.getScaledInstance(readB.getWidth() - 150, readB.getHeight() -25, image1.SCALE_SMOOTH);
+
+        Image ScaledImage14 = image14.getScaledInstance(readB.getWidth() - 150, readB.getHeight() - 25, image1.SCALE_SMOOTH);
         Image ScaledImage15 = image15.getScaledInstance(reset.getWidth() - 65, reset.getHeight() - 25, image1.SCALE_SMOOTH);
-        
+
         readB.setIcon(new javax.swing.ImageIcon(image10));
         host.setIcon(new javax.swing.ImageIcon(ScaledImage));
         nas.setIcon(new javax.swing.ImageIcon(ScaledImage1));
@@ -1297,23 +1418,21 @@ highLightField (false);
         copiar.setIcon(new javax.swing.ImageIcon(ScaledImage5));
         infoB.setIcon(new javax.swing.ImageIcon(ScaledImage6));
         reset.setIcon(new javax.swing.ImageIcon(image13));
-        
+
         cmOK1.setIcon(new javax.swing.ImageIcon(ScaledImage14));
-cmERROR1.setIcon(new javax.swing.ImageIcon(ScaledImage15));
-cmOK2.setIcon(new javax.swing.ImageIcon(ScaledImage14));
-cmERROR2.setIcon(new javax.swing.ImageIcon(ScaledImage15));
-cmOK3.setIcon(new javax.swing.ImageIcon(ScaledImage14));
-cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
-        
-        
-        
+        cmERROR1.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+        cmOK2.setIcon(new javax.swing.ImageIcon(ScaledImage14));
+        cmERROR2.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+        cmOK3.setIcon(new javax.swing.ImageIcon(ScaledImage14));
+        cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+
         linha.setVisible(false);
         linha1.setVisible(false);
         this.aviso.setVisible(false);
         System.setOut(printStream);
         this.setInfoBPosition(160);
         labelRHOST.setVisible(false);
-        
+
         cmOK1.setVisible(false);
         cmOK2.setVisible(false);
         cmOK3.setVisible(false);
@@ -1321,125 +1440,120 @@ cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
         cmERROR2.setVisible(false);
         cmERROR3.setVisible(false);
  //       reset.setBackground(Color.BLACK);
- //       reset.setForeground(Color.BLACK);
-        
+        //       reset.setForeground(Color.BLACK);
+
         this.highLight(2, false);
         this.highLight(3, false);
         this.highLight(4, false);
-        highLightField (false);
-        
+        highLightField(false);
+
     }
-    
-    private void reset(int x){
-        
+
+    private void reset(int x) {
+
 //        connect.setEnabled(false);
 //        readB.setEnabled(false);
 //        reset.setEnabled(true);
-        
-                switch (x) {
+        switch (x) {
 
             case 1:
                 cmERROR1.setVisible(true);
                 break;
-                
-                            case 2:
+
+            case 2:
                 cmERROR2.setVisible(true);
                 break;
-    
-                case 3:
+
+            case 3:
                 cmERROR3.setVisible(true);
                 break;
-                    
-                }
-        
+
+        }
+
     }
-    
-    private void highLight (int x, boolean y){
-           
-        if (y){
-        
-        switch (x) {
-                            
-           
-                            
-            case 1:
-                jLabel7.setVisible(true);
-                jLabel8.setVisible(true);
-                break;
-                
-                            case 2:
-                jLabel14.setVisible(true);
-                jLabel13.setVisible(true);
-                break;
-    
+
+    private void highLight(int x, boolean y) {
+
+        if (y) {
+
+            switch (x) {
+
+                case 1:
+                    jLabel7.setVisible(true);
+                    jLabel8.setVisible(true);
+                    break;
+
+                case 2:
+                    jLabel14.setVisible(true);
+                    jLabel13.setVisible(true);
+                    break;
+
                 case 3:
-                jLabel16.setVisible(true);
-                jLabel15.setVisible(true);
-                break;
-                    
-                                    case 4:
-                jLabel9.setVisible(true);
-                jLabel10.setVisible(true);
-                break;
-                    
-                }
+                    jLabel16.setVisible(true);
+                    jLabel15.setVisible(true);
+                    break;
+
+                case 4:
+                    jLabel9.setVisible(true);
+                    jLabel10.setVisible(true);
+                    break;
+
+            }
         } else {
-            
-                    switch (x) {
-                            
-           
-                            
-            case 1:
-                jLabel7.setVisible(false);
-                jLabel8.setVisible(false);
-                break;
-                
-                            case 2:
-                jLabel14.setVisible(false);
-                jLabel13.setVisible(false);
-                break;
-    
+
+            switch (x) {
+
+                case 1:
+                    jLabel7.setVisible(false);
+                    jLabel8.setVisible(false);
+                    break;
+
+                case 2:
+                    jLabel14.setVisible(false);
+                    jLabel13.setVisible(false);
+                    break;
+
                 case 3:
-                jLabel16.setVisible(false);
-                jLabel15.setVisible(false);
-                break;
-                    
-                                    case 4:
-                jLabel9.setVisible(false);
-                jLabel10.setVisible(false);
-                break;
-            
-        }
+                    jLabel16.setVisible(false);
+                    jLabel15.setVisible(false);
+                    break;
+
+                case 4:
+                    jLabel9.setVisible(false);
+                    jLabel10.setVisible(false);
+                    break;
+
+            }
         }
     }
-    
-    private void highLightField (boolean x){
-        
-        if (x){
+
+    private void highLightField(boolean x) {
+
+        if (x) {
             jLabel18.setVisible(true);
-                    jLabel19.setVisible(true);
-                    jLabel20.setVisible(true);
-                            jLabel21.setVisible(true);
-                            jLabel17.setVisible(true);
+            jLabel19.setVisible(true);
+            jLabel20.setVisible(true);
+            jLabel21.setVisible(true);
+            jLabel17.setVisible(true);
         } else {
             jLabel18.setVisible(false);
-                    jLabel19.setVisible(false);
-                    jLabel20.setVisible(false);
-                            jLabel21.setVisible(false);
-                            jLabel17.setVisible(false);            
+            jLabel19.setVisible(false);
+            jLabel20.setVisible(false);
+            jLabel21.setVisible(false);
+            jLabel17.setVisible(false);
         }
-        
+
     }
-    
-    private void initLogsAction(){
+
+    private void initLogsAction() {
         System.setOut(printStream);
-            logs += outputStream.toString();
-            logArea.setText(logs);
+        logs += outputStream.toString();
+        logArea.setText(logs);
     }
 
     private void atualizaLog(String txt) {
-        Date currentTime = new Date();   
-        this.logs += "["+this.username+"@"+this.hostName+" ("+timeFormat.format(currentTime)+ ")]> "+ txt + "\n";
+        Date currentTime = new Date();
+        this.logs += "[" + this.username + "@" + this.hostName + " (" + timeFormat.format(currentTime) + ")]> " + txt + "\n";
     }
 
     private void atualizaDominio(String txt) {
@@ -1457,55 +1571,54 @@ cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
     private void atualizaHint(String txt) {
         this.hint.setText(txt);
     }
-    
-        private void setInfoBPosition (int x){
+
+    private void setInfoBPosition(int x) {
         this.infoB.setVisible(true);
         this.resetInfoBPosition();
-        this.infoB.setBounds(x+this.infoB.getLocation().x, this.infoB.getLocation().y, 40, 30);
+        this.infoB.setBounds(x + this.infoB.getLocation().x, this.infoB.getLocation().y, 40, 30);
         this.infoB.setVisible(true);
     }
-    
-    private void resetInfoBPosition (){
+
+    private void resetInfoBPosition() {
         this.infoB.setBounds(10, 0, 40, 30);
     }
-    
-    private void getRHostAddress (String nomeDoHost) throws SocketException{
-        
-            try {
-                InetAddress enderecoIP = InetAddress.getByName(nomeDoHost);
-                String enderecoIPStr = enderecoIP.getHostAddress();
-                this.atualizaLog("Endereço de IP da máquina destino: "+enderecoIPStr);
-                this.atualizaLog("Realizando testes de conectividade.");
-                if(enderecoIPStr.equals("127.0.0.1")){
-                            reset(1);
-                            cmERROR1.setVisible(true);
-                            this.highLight(1, false);
-                            this.highLight(4, true);
-                            labelRHOST.setText("Maquina desconhecida.");
-                            atualizaLog("Não foi possivel obter o endereço de IP da máquina destino.");
-                                    } else{
-                    cmOK1.setVisible(true);
-                                    this.highLight(1, false);
+
+    private void getRHostAddress(String nomeDoHost) throws SocketException {
+
+        try {
+            InetAddress enderecoIP = InetAddress.getByName(nomeDoHost);
+            String enderecoIPStr = enderecoIP.getHostAddress();
+            this.atualizaLog("Endereço de IP da máquina destino: " + enderecoIPStr);
+            this.atualizaLog("Realizando testes de conectividade.");
+            if (enderecoIPStr.equals("127.0.0.1")) {
+                reset(1);
+                cmERROR1.setVisible(true);
+                this.highLight(1, false);
+                this.highLight(4, true);
+                labelRHOST.setText("Maquina desconhecida.");
+                atualizaLog("Não foi possivel obter o endereço de IP da máquina destino.");
+            } else {
+                cmOK1.setVisible(true);
+                this.highLight(1, false);
                 this.highLight(2, true);
-                labelRHOST.setText(enderecoIPStr);
-                linha.setVisible(true); 
                 this.validOk = true; //DEU CERTO!
-                } 
+                labelRHOST.setText(enderecoIPStr);
+                linha.setVisible(true);
+                rede.setEnabled(false);
+            }
 
-               
-            } catch (UnknownHostException e) {
-                System.err.println(this.getHorario() + "Não foi possível encontrar o endereço IP para o host: " + nomeDoHost);
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
+        } catch (UnknownHostException e) {
+            System.err.println(this.getHorario() + "Não foi possível encontrar o endereço IP para o host: " + nomeDoHost);
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
 
-                this.atualizaLog(sw.toString());
-            }  
+            this.atualizaLog(sw.toString());
+        }
 
     }
-    
- 
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton apagar;
     private javax.swing.JLabel aviso;
