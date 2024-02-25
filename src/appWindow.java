@@ -119,11 +119,15 @@ public class appWindow extends javax.swing.JFrame {
         readB = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         hintButton = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         reset = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
+        cmOK1 = new javax.swing.JLabel();
+        cmERROR3 = new javax.swing.JLabel();
+        cmERROR1 = new javax.swing.JLabel();
+        cmOK2 = new javax.swing.JLabel();
+        cmERROR2 = new javax.swing.JLabel();
+        cmOK3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -134,7 +138,7 @@ public class appWindow extends javax.swing.JFrame {
         setBackground(java.awt.Color.black);
         setForeground(java.awt.Color.black);
         setMinimumSize(new java.awt.Dimension(615, 465));
-        setPreferredSize(new java.awt.Dimension(615, 540));
+        setPreferredSize(new java.awt.Dimension(620, 560));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -264,7 +268,7 @@ public class appWindow extends javax.swing.JFrame {
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel5.setOpaque(true);
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(70, 490, 514, 16);
+        jLabel5.setBounds(73, 500, 514, 16);
 
         senha.setEditable(false);
         senha.setBackground(new java.awt.Color(242, 242, 242));
@@ -274,15 +278,15 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(senha);
-        senha.setBounds(10, 370, 280, 30);
+        senha.setBounds(10, 360, 280, 30);
 
-        jLabel1.setText("Senha");
+        jLabel1.setText("Protocolo");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 350, 280, 14);
+        jLabel1.setBounds(10, 392, 280, 14);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(300, 180, 10, 250);
+        jSeparator1.setBounds(300, 180, 10, 270);
 
         param.setText("DOMINIO;USUARIO:SENHA");
         param.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -301,7 +305,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(param);
-        param.setBounds(10, 220, 280, 30);
+        param.setBounds(10, 210, 280, 30);
 
         dominio.setEditable(false);
         dominio.setBackground(new java.awt.Color(242, 242, 242));
@@ -311,7 +315,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(dominio);
-        dominio.setBounds(10, 270, 280, 30);
+        dominio.setBounds(10, 260, 280, 30);
 
         usuario.setEditable(false);
         usuario.setBackground(new java.awt.Color(242, 242, 242));
@@ -321,19 +325,19 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(usuario);
-        usuario.setBounds(10, 320, 280, 30);
+        usuario.setBounds(10, 310, 280, 30);
 
         jLabel2.setText("Autenticação para ambiente de rede");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 200, 280, 14);
+        jLabel2.setBounds(10, 190, 280, 14);
 
         jLabel3.setText("Dominio");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 250, 280, 14);
+        jLabel3.setBounds(10, 240, 280, 14);
 
         jLabel4.setText("Usuário");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 300, 280, 14);
+        jLabel4.setBounds(10, 290, 280, 14);
 
         connect.setEnabled(false);
         connect.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -360,7 +364,7 @@ public class appWindow extends javax.swing.JFrame {
         jScrollPane1.setViewportView(logArea);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(70, 500, 520, 140);
+        jScrollPane1.setBounds(70, 510, 520, 140);
 
         validate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -378,7 +382,7 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(validate);
         validate.setBounds(350, 290, 90, 50);
 
-        log.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        log.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
         log.setText("▼");
         log.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -391,7 +395,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(log);
-        log.setBounds(10, 440, 570, 40);
+        log.setBounds(10, 460, 570, 30);
 
         hint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hint.setText("Desenvolvido por Mauros Milach, 2023.");
@@ -426,7 +430,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(apagar);
-        apagar.setBounds(10, 490, 50, 40);
+        apagar.setBounds(10, 530, 50, 40);
 
         copiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -439,9 +443,9 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(copiar);
-        copiar.setBounds(10, 540, 50, 40);
+        copiar.setBounds(10, 580, 50, 40);
         getContentPane().add(jSeparator2);
-        jSeparator2.setBounds(0, 430, 600, 10);
+        jSeparator2.setBounds(0, 450, 600, 10);
 
         busca.setSelected(true);
         busca.setText("Arquivos do diretório");
@@ -451,7 +455,7 @@ public class appWindow extends javax.swing.JFrame {
             }
         });
         getContentPane().add(busca);
-        busca.setBounds(80, 400, 140, 23);
+        busca.setBounds(390, 420, 140, 23);
         getContentPane().add(infoB);
         infoB.setBounds(10, 0, 40, 30);
 
@@ -484,28 +488,11 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(hintButton);
         hintButton.setBounds(310, 266, 280, 14);
 
-        jLabel6.setText("jLabel6");
-        jLabel6.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel6.setMinimumSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(440, 360, 40, 40);
-
-        jLabel7.setText("jLabel6");
-        jLabel7.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel7.setMinimumSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(310, 295, 40, 40);
-
-        jLabel8.setText("jLabel6");
-        jLabel8.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel8.setMinimumSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(440, 295, 40, 40);
-
-        reset.setBackground(new java.awt.Color(0, 0, 0));
+        reset.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         reset.setBorderPainted(false);
         reset.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         reset.setEnabled(false);
+        reset.setOpaque(false);
         reset.setSelected(true);
         reset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -520,11 +507,43 @@ public class appWindow extends javax.swing.JFrame {
         getContentPane().add(reset);
         reset.setBounds(480, 360, 90, 50);
 
-        jLabel9.setText("jLabel6");
-        jLabel9.setMaximumSize(new java.awt.Dimension(30, 30));
-        jLabel9.setMinimumSize(new java.awt.Dimension(30, 30));
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(310, 365, 40, 40);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SMB 1.0", "SMB 2.0", "SMB 3.0" }));
+        jComboBox1.setSelectedItem("SMB 3.0");
+        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBox1MouseEntered(evt);
+            }
+        });
+        getContentPane().add(jComboBox1);
+        jComboBox1.setBounds(10, 410, 280, 30);
+
+        jLabel6.setText("Senha");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(10, 340, 280, 14);
+
+        cmOK1.setText("x");
+        getContentPane().add(cmOK1);
+        cmOK1.setBounds(326, 290, 30, 30);
+
+        cmERROR3.setText("y");
+        getContentPane().add(cmERROR3);
+        cmERROR3.setBounds(456, 310, 30, 30);
+
+        cmERROR1.setText("y");
+        getContentPane().add(cmERROR1);
+        cmERROR1.setBounds(326, 310, 30, 30);
+
+        cmOK2.setText("x");
+        getContentPane().add(cmOK2);
+        cmOK2.setBounds(326, 360, 30, 30);
+
+        cmERROR2.setText("y");
+        getContentPane().add(cmERROR2);
+        cmERROR2.setBounds(326, 380, 30, 30);
+
+        cmOK3.setText("x");
+        getContentPane().add(cmOK3);
+        cmOK3.setBounds(456, 290, 30, 30);
 
         jMenu1.setText("Opções");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -658,8 +677,8 @@ public class appWindow extends javax.swing.JFrame {
 
     private void validateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validateActionPerformed
 
-                               reset.setBackground(Color.BLACK);
-        reset.setForeground(Color.BLACK);
+  //                             reset.setBackground(Color.BLACK);
+ //       reset.setForeground(Color.BLACK);
         
         labelHNAME.setVisible(true);
         atualizaLog("Validando entradas do usuário.");
@@ -681,13 +700,15 @@ public class appWindow extends javax.swing.JFrame {
             atualizaLog("Realizado tratamento das entradas.");
             try {
                 this.getRHostAddress(maquina);
+                
             } catch (SocketException ex) {
                 atualizaLog("Ocorreu algum erro ao obter o endereço de IP da máquina destino.");
+                cmERROR1.setVisible(false);
                 Logger.getLogger(appWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            connect.setEnabled(true);
-            validate.setEnabled(false);
+  //          connect.setEnabled(true);
+  //          validate.setEnabled(false);
             logs += outputStream.toString();
             logArea.setText(logs);
             this.run = true;
@@ -698,7 +719,10 @@ public class appWindow extends javax.swing.JFrame {
             } else{
                 
             }
-            
+                //QUANDO DE FATO FUNCIONA:
+       connect.setEnabled(true);
+       //readB.setEnabled(true);
+       validate.setEnabled(false);   
         }
         
         else {
@@ -708,6 +732,8 @@ public class appWindow extends javax.swing.JFrame {
         }
        atualizaLog("Validações finalizadas."); 
        
+       
+
        
        
     }//GEN-LAST:event_validateActionPerformed
@@ -742,7 +768,7 @@ public class appWindow extends javax.swing.JFrame {
 
     private void connectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectActionPerformed
         this.atualizaLog("Iniciando autenticação com o host destino.");
-        connect.setEnabled(false);
+//        connect.setEnabled(false);
         String username = usuario.getText();
         String password = senha.getText();
         String networkPath = rede.getText();
@@ -765,7 +791,7 @@ public class appWindow extends javax.swing.JFrame {
                         this.atualizaLog(" Arquivo Encontrado: " + file.getName());
                     }
                     linha1.setVisible(true);
-                    readB.setEnabled(true);
+                    
                 } else {
 
                 }
@@ -782,9 +808,13 @@ public class appWindow extends javax.swing.JFrame {
             this.atualizaLog(pw.toString());
             linha1.setVisible(false);
         }
+        
+ //       readB.setEnabled(true); // adicionado botão sem validação
+ //       connect.setEnabled(false);
         System.setOut(printStream);
-        connect.setEnabled(false);
+  //      connect.setEnabled(false);
         logArea.setText(logs);
+        readB.setEnabled(true);
 
     }//GEN-LAST:event_connectActionPerformed
 
@@ -795,13 +825,13 @@ public class appWindow extends javax.swing.JFrame {
 
     private void logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logActionPerformed
         if (hide == false) {
-            setSize(new java.awt.Dimension(615, 540));
+            setSize(new java.awt.Dimension(615, 560));
             log.setText("▼");
             this.atualizaHint("Ok, ocultado a janela de Logs.");
             this.setInfoBPosition(188);
             hide = true;
         } else {
-            setSize(new java.awt.Dimension(615, 700));
+            setSize(new java.awt.Dimension(615, 725));
             log.setText("▲");
             this.atualizaHint("Ok, expandido a janela de Logs.");
             this.setInfoBPosition(182);
@@ -836,8 +866,8 @@ public class appWindow extends javax.swing.JFrame {
         StringSelection selection = new StringSelection(logArea.getText());
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(selection, null);
-        this.atualizaHint("Ok, copiado logs para a área de transferência.");
-        this.setInfoBPosition(145);
+        this.atualizaHint("Ok, copiado logs para a área de transferência (BUFFER).");
+        this.setInfoBPosition(115);
     }//GEN-LAST:event_copiarActionPerformed
 
     private void apagarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apagarMouseEntered
@@ -846,8 +876,8 @@ public class appWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_apagarMouseEntered
 
     private void copiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_copiarMouseEntered
-        this.atualizaHint("Copiar logs para a área de transferência.");
-        this.setInfoBPosition(158);
+        this.atualizaHint("Copiar logs para a área de transferência (BUFFER).");
+        this.setInfoBPosition(130);
     }//GEN-LAST:event_copiarMouseEntered
 
     private void labelOSMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelOSMouseEntered
@@ -972,6 +1002,8 @@ public class appWindow extends javax.swing.JFrame {
     private void readBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readBMouseEntered
         // TODO add your handling code here:
         this.hintButton.setText("Teste de leitura e escrita.");
+                this.atualizaHint("Enviar um arquivo de texto e realizar a leitura do arquivo.");
+        this.setInfoBPosition(118);
     }//GEN-LAST:event_readBMouseEntered
 
     private void readBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_readBMouseExited
@@ -980,18 +1012,27 @@ public class appWindow extends javax.swing.JFrame {
 
     private void readBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readBActionPerformed
         // TODO add your handling code here:
-        connect.setEnabled(false);
-        readB.setEnabled(false);
-        reset.setEnabled(true);
+ //       connect.setEnabled(false);
+ //       readB.setEnabled(false);
+ //       reset.setEnabled(true);
     }//GEN-LAST:event_readBActionPerformed
 
     private void resetMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetMouseEntered
         // TODO add your handling code here:
+        this.hintButton.setText("Zerar variáveis.");
+                this.atualizaHint("Recarrega variáveis globais.");
+        this.setInfoBPosition(193);
     }//GEN-LAST:event_resetMouseEntered
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_resetActionPerformed
+
+    private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
+        // TODO add your handling code here:
+                this.atualizaHint("Defina a versão do protocolo SMB.");
+        this.setInfoBPosition(177);
+    }//GEN-LAST:event_jComboBox1MouseEntered
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1038,12 +1079,15 @@ public class appWindow extends javax.swing.JFrame {
         ImageIcon icon2 = new ImageIcon(getClass().getClassLoader().getResource("imagens/line.gif"));
         ImageIcon icon3 = new ImageIcon(getClass().getClassLoader().getResource("imagens/lineR.gif"));
         ImageIcon icon4 = new ImageIcon(getClass().getClassLoader().getResource("imagens/broadband-ezgif.com-gif-maker.gif"));
-        ImageIcon icon5 = new ImageIcon(getClass().getClassLoader().getResource("imagens/key.png"));
+        ImageIcon icon5 = new ImageIcon(getClass().getClassLoader().getResource("imagens/1625654222_14334_gif-url-ezgif.com-resize.gif"));
         ImageIcon icon6 = new ImageIcon(getClass().getClassLoader().getResource("imagens/eraser.png"));
         ImageIcon icon7 = new ImageIcon(getClass().getClassLoader().getResource("imagens/copy.png"));
         ImageIcon icon8 = new ImageIcon(getClass().getClassLoader().getResource("imagens/info_button.png"));
-        ImageIcon icon10 = new ImageIcon(getClass().getClassLoader().getResource("imagens/reading.png"));
+        ImageIcon icon10 = new ImageIcon(getClass().getClassLoader().getResource("imagens/1618932779_82532_gif-url-ezgif.com-speed.gif"));
         ImageIcon icon13 = new ImageIcon(getClass().getClassLoader().getResource("imagens/08-32-06-494_512-ezgif.com-gif-maker.gif"));
+        
+        ImageIcon icon14 = new ImageIcon(getClass().getClassLoader().getResource("imagens/check-mark-icon-green-0.png"));
+        ImageIcon icon15 = new ImageIcon(getClass().getClassLoader().getResource("imagens/error-icon-4.png"));
         
         Image image = icon.getImage();
         Image image1 = icon1.getImage();
@@ -1056,6 +1100,8 @@ public class appWindow extends javax.swing.JFrame {
         Image image8 = icon8.getImage();
         Image image10 = icon10.getImage();
         Image image13 = icon13.getImage();
+        Image image14 = icon14.getImage();
+        Image image15 = icon15.getImage();
         
         Image ScaledImage = image.getScaledInstance(host.getWidth(), host.getHeight(), image.SCALE_SMOOTH);
         Image ScaledImage1 = image1.getScaledInstance(nas.getWidth(), nas.getHeight() - 20, image1.SCALE_SMOOTH);
@@ -1066,18 +1112,29 @@ public class appWindow extends javax.swing.JFrame {
         Image ScaledImage6 = image8.getScaledInstance(infoB.getWidth() - 25, infoB.getHeight() - 15, image1.SCALE_SMOOTH);
         Image ScaledImage9 = image10.getScaledInstance(readB.getWidth() - 150, readB.getHeight() -25, image1.SCALE_SMOOTH);
         Image ScaledImage10 = image13.getScaledInstance(reset.getWidth() - 25, reset.getHeight() - 15, image1.SCALE_SMOOTH);
+ 
+        Image ScaledImage14 = image14.getScaledInstance(readB.getWidth() - 150, readB.getHeight() -25, image1.SCALE_SMOOTH);
+        Image ScaledImage15 = image15.getScaledInstance(reset.getWidth() - 65, reset.getHeight() - 25, image1.SCALE_SMOOTH);
         
-        readB.setIcon(new javax.swing.ImageIcon(ScaledImage9));
+        readB.setIcon(new javax.swing.ImageIcon(image10));
         host.setIcon(new javax.swing.ImageIcon(ScaledImage));
         nas.setIcon(new javax.swing.ImageIcon(ScaledImage1));
         linha.setIcon(new javax.swing.ImageIcon(image2));
         linha1.setIcon(new javax.swing.ImageIcon(image3));
         validate.setIcon(new javax.swing.ImageIcon(image4));
-        connect.setIcon(new javax.swing.ImageIcon(ScaledImage3));
+        connect.setIcon(new javax.swing.ImageIcon(image5));
         apagar.setIcon(new javax.swing.ImageIcon(ScaledImage4));
         copiar.setIcon(new javax.swing.ImageIcon(ScaledImage5));
         infoB.setIcon(new javax.swing.ImageIcon(ScaledImage6));
         reset.setIcon(new javax.swing.ImageIcon(image13));
+        
+        cmOK1.setIcon(new javax.swing.ImageIcon(ScaledImage14));
+cmERROR1.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+cmOK2.setIcon(new javax.swing.ImageIcon(ScaledImage14));
+cmERROR2.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+cmOK3.setIcon(new javax.swing.ImageIcon(ScaledImage14));
+cmERROR3.setIcon(new javax.swing.ImageIcon(ScaledImage15));
+        
         
         
         linha.setVisible(false);
@@ -1087,8 +1144,14 @@ public class appWindow extends javax.swing.JFrame {
         this.setInfoBPosition(160);
         labelRHOST.setVisible(false);
         
-        reset.setBackground(Color.BLACK);
-        reset.setForeground(Color.BLACK);
+        cmOK1.setVisible(false);
+        cmOK2.setVisible(false);
+        cmOK3.setVisible(false);
+        cmERROR1.setVisible(false);
+        cmERROR2.setVisible(false);
+        cmERROR3.setVisible(false);
+ //       reset.setBackground(Color.BLACK);
+ //       reset.setForeground(Color.BLACK);
     }
     
     private void initLogsAction(){
@@ -1136,6 +1199,12 @@ public class appWindow extends javax.swing.JFrame {
                 String enderecoIPStr = enderecoIP.getHostAddress();
                 this.atualizaLog("Endereço de IP da máquina destino: "+enderecoIPStr);
                 this.atualizaLog("Realizando testes de conectividade.");
+                if(enderecoIPStr.equals("127.0.0.1")){
+                            
+                            cmERROR1.setVisible(true);
+                                    } else{
+                    cmOK1.setVisible(true);
+                }
                 labelRHOST.setText(enderecoIPStr);
                 linha.setVisible(true); 
                
@@ -1156,6 +1225,12 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JButton apagar;
     private javax.swing.JLabel aviso;
     private javax.swing.JCheckBox busca;
+    private javax.swing.JLabel cmERROR1;
+    private javax.swing.JLabel cmERROR2;
+    private javax.swing.JLabel cmERROR3;
+    private javax.swing.JLabel cmOK1;
+    private javax.swing.JLabel cmOK2;
+    private javax.swing.JLabel cmOK3;
     private javax.swing.JButton connect;
     private javax.swing.JButton copiar;
     private javax.swing.JLabel destino;
@@ -1165,6 +1240,7 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JLabel hintButton;
     private javax.swing.JLabel host;
     private javax.swing.JLabel infoB;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1173,9 +1249,6 @@ public class appWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
